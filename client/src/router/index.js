@@ -14,6 +14,12 @@ export default new Router({
       component: Home
     },
     {
+      path: "/CreateCourse",
+      name: "createCourse",
+      component: () =>
+      import("../views/CreateCourseForm.vue")
+    },
+    {
       path: "/about",
       name: "about",
       // route level code-splitting
