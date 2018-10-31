@@ -3,7 +3,7 @@
     <div class="container">
       <section class="hero">
         <div class="hero-body">
-          <div class="is-flex">
+          <div class="is-flex is-undeline rm_padding">
             <h1 class="title is-2 course_title">
               All Course
             </h1>
@@ -33,7 +33,6 @@ export default {
   },
   created() {
     this.course = Course.courseDetail;
-    console.log(this.course);
   }
 };
 </script>

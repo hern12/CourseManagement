@@ -1,0 +1,42 @@
+<template>
+    <div class="modal" :class="[modalStatus ? 'is-active' : null]"> 
+        <div class="modal-background" @click="loginModalStatus(false)"></div>
+            <div class="modal-content">
+                <div class="box">
+                    <p class="title is-3">Login</p>
+                    <div class="field">
+                        <label class="label title is-6">Username</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="Username">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label title is-6">Password</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="Password">
+                        </div>
+                    </div>
+                    <a class="button is-info">Login</a>
+                </div>
+            </div>
+        <button class="modal-close is-large" aria-label="close" @click="loginModalStatus(false)"></button>
+    </div>
+</template>
+
+<script>
+    export default {
+        props:['activeModal'],
+        data(){
+            return{
+                modalStatus: this.activeModal
+            }
+        },
+        methods: {
+            loginModalStatus (status) {
+                this.modalStatus = status
+                this.$emit('closeModal', this.modalStatus)
+            }
+        }
+    }
+</script>
+

@@ -18,9 +18,9 @@
                 Home
             </router-link>
 
-            <a class="navbar-item">
-                Documentation
-            </a>
+            <router-link class="navbar-item" to='/CreateCourse'>
+                CreateCourse
+            </router-link>
 
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
@@ -48,7 +48,7 @@
             <div class="navbar-end">
             <div class="navbar-item">
                 <div class="buttons">
-                    <a class="button is-light">
+                    <a class="button is-light" @click="setLogin">
                         Log in
                     </a>
                 </div>
@@ -57,6 +57,17 @@
         </div>
     </nav>
 </template>
+<script>
+export default {
+    methods:{
+        setLogin(){
+            this.$emit('activeModal', true)
+        }
+    }
+}
+</script>
+
+
 
 <style scoped>
 .navbar {

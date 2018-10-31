@@ -1,36 +1,41 @@
 <template>
   <div id="app">
-    <Nav/>
+    <Nav @activeModal="loginModalStatus"/>
+    <LoginComponent 
+    v-if="modalState" 
+    :activeModal="modalState"
+     @closeModal="loginModalStatus" />
     <router-view/>
   </div>
 </template>
 
 <script>
 import Nav from "@/components/Nav.vue";
+import LoginComponent from '@/components/LoginModal.vue'
 
 export default {
   components: {
-    Nav
+    Nav,
+    LoginComponent
+  },
+  data(){
+    return{
+      modalState: false
+    }
+  },
+  methods: {
+    loginModalStatus (status) {
+      this.modalState = status
+    }
   }
 };
 </script>
 
-<style lang="scss">
-// #app {
-//   font-family: "Avenir", Helvetica, Arial, sans-serif;
-//   -webkit-font-smoothing: antialiased;
-//   -moz-osx-font-smoothing: grayscale;
-//   text-align: center;
-//   color: #2c3e50;
-// }
-// #nav {
-//   padding: 30px;
-//   a {
-//     font-weight: bold;
-//     color: #2c3e50;
-//     &.router-link-exact-active {
-//       color: #42b983;
-//     }
-//   }
-// }
+<style>
+#app {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  background-image: linear-gradient(#C9D6FF,#E2E2E2);
+}
 </style>

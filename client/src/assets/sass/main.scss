@@ -1,15 +1,6 @@
 @import '~bulma/bulma';
 @import url('https://fonts.googleapis.com/css?family=Taviraj');
 
-html{
-    height: 100%;
-    background: #ecf0f1;
-}
-
-body{
-    height: 100%;
-    background-attachment: fixed;
-}
 
 .is_bold{
     font-weight: bold;
@@ -21,4 +12,8 @@ body{
 
 .is-undeline{
     border-bottom: 1px solid #34495e;
+}
+
+.rm_padding{
+    padding:0 
 }

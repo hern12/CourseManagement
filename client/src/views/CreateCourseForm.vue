@@ -3,7 +3,7 @@
         <div class="container">
             <section class="hero">
                 <div class="hero-body">
-                    <div class="is-undeline is-flex">
+                    <div class="is-undeline is-flex rm_padding">
                         <h1 class="title is-2 course_title">
                             Create Course
                         </h1>
