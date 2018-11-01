@@ -7,16 +7,16 @@
                     <div class="field">
                         <label class="label title is-6">Username</label>
                         <div class="control">
-                            <input class="input" type="text" placeholder="Username">
+                            <input class="input" type="text" placeholder="Username" v-model="username">
                         </div>
                     </div>
                     <div class="field">
                         <label class="label title is-6">Password</label>
                         <div class="control">
-                            <input class="input" type="text" placeholder="Password">
+                            <input class="input" type="text" placeholder="Password" v-model="password">
                         </div>
                     </div>
-                    <a class="button is-info">Login</a>
+                    <a class="button is-info" @click="login">Login</a>
                 </div>
             </div>
         <button class="modal-close is-large" aria-label="close" @click="loginModalStatus(false)"></button>
@@ -24,17 +24,33 @@
 </template>
 
 <script>
+    import axios from 'axios'
     export default {
         props:['activeModal'],
         data(){
             return{
-                modalStatus: this.activeModal
+                modalStatus: this.activeModal,
+                username: '',
+                password: ''
             }
+        },
+        created(){
+            axios.get('localhost:3000').then( result => {
+                    console.log('hello')
+                    console.log(result)
+            })
         },
         methods: {
             loginModalStatus (status) {
                 this.modalStatus = status
                 this.$emit('closeModal', this.modalStatus)
+            },
+            login(){
+                let userObj = {
+                    username: this.username,
+                    password: this.password
+                }
+                this.$store.dispatch('login', userObj)
             }
         }
     }
