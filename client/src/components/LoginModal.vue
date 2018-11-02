@@ -46,7 +46,6 @@
                     password: this.password
                 }
                 this.$store.dispatch('login', userObj)
-                console.log(this.$store.state.userObj)
             }
         },
         computed: mapState({
