@@ -13,7 +13,7 @@
                     <div class="field">
                         <label class="label title is-6">Password</label>
                         <div class="control">
-                            <input class="input" type="text" placeholder="Password" v-model="password">
+                            <input class="input" type="password" placeholder="Password" v-model="password">
                         </div>
                     </div>
                     <a class="button is-info" @click="login">Login</a>
@@ -24,21 +24,16 @@
 </template>
 
 <script>
+    import { mapState } from 'vuex'
     import axios from 'axios'
     export default {
         props:['activeModal'],
         data(){
             return{
                 modalStatus: this.activeModal,
-                username: '',
-                password: ''
+                username: 'student1',
+                password: '123123'
             }
-        },
-        created(){
-            axios.get('localhost:3000').then( result => {
-                    console.log('hello')
-                    console.log(result)
-            })
         },
         methods: {
             loginModalStatus (status) {
@@ -51,8 +46,12 @@
                     password: this.password
                 }
                 this.$store.dispatch('login', userObj)
+                console.log(this.$store.state.userObj)
             }
-        }
+        },
+        computed: mapState({
+            closeModalIfLoginComplete: state => state.userObj 
+        })
     }
 </script>
 

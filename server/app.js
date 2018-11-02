@@ -7,7 +7,7 @@ const server = Http.createServer(Api)
 
 sqlServer.connect((err) => {
     if(!err){
-        server.listen(3000, () => console.log(`Listening on port ${3000}`))
+        server.listen(5000, () => console.log(`Listening on port ${5000}`))
     }
 })
 

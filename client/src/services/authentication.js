@@ -2,10 +2,9 @@ import axios from 'axios'
 
 
 export const login = (user) => {
-    return axios.post('localhost:3000/users/login', user).then(token => {
+    return axios.post('http://localhost:5000/users/login', user).then(userItem => {
         return {
-            status: 'success',
-            token
+            userItem
         }
     })
 }

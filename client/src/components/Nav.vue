@@ -14,41 +14,31 @@
 
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
-            <router-link class="navbar-item" to="/">
-                Home
-            </router-link>
-
-            <router-link class="navbar-item" to='/CreateCourse'>
-                CreateCourse
-            </router-link>
-
-            <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">
-                More
-                </a>
-
-                <div class="navbar-dropdown">
-                <a class="navbar-item">
-                    About
-                </a>
-                <a class="navbar-item">
-                    Jobs
-                </a>
-                <a class="navbar-item">
-                    Contact
-                </a>
-                <hr class="navbar-divider">
-                <a class="navbar-item">
-                    Report an issue
-                </a>
-                </div>
-            </div>
+                <router-link class="navbar-item" to="/">
+                    Home
+                </router-link>
             </div>
 
             <div class="navbar-end">
+                <router-link v-if="userObj && userObj[0].RoleID === 2" class="navbar-item" to='/CreateCourse'>
+                    CreateCourse
+                </router-link>
             <div class="navbar-item">
                 <div class="buttons">
-                    <a class="button is-light" @click="setLogin">
+                    <div v-if="userObj" class="navbar-item has-dropdown is-hoverable">
+                        <a class="button is-light">
+                            {{userObj[0].Username}}
+                        </a>
+                        <div class="navbar-dropdown">
+                            <a class="navbar-item">
+                                Profile
+                            </a>
+                            <a class="navbar-item" @click="setLogout">
+                                Log out
+                            </a>
+                        </div>
+                    </div>
+                    <a v-else class="button is-light" @click="setLogin">
                         Log in
                     </a>
                 </div>
@@ -58,12 +48,20 @@
     </nav>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
+
     methods:{
         setLogin(){
             this.$emit('activeModal', true)
+        },
+        setLogout(){
+            this.$store.dispatch('logout')
         }
-    }
+    },
+    computed: mapState({
+        userObj: state => state.userObj
+    })
 }
 </script>
 

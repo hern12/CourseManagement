@@ -4,16 +4,38 @@ import { login } from '../services/authentication'
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
+  state: {
+    userObj: {}
+  },
   mutations: {
-
+    setUserLogin(state, payload){
+      state.userObj = payload
+    }
   },
   actions: {
     login({commit}, userDetail) {
-      console.log(userDetail)
-      login(userDetail).then((data) => {
-        console.log(data)
+      login(userDetail).then(({userItem}) => {
+        if(userItem.data.status === 'fail'){
+          alert(userItem.data.statusTxt)
+        }else{
+          alert('login success')
+          localStorage.setItem("userDetail", JSON.stringify(userItem.data.user))
+          const userDetail = localStorage.getItem("userDetail")
+          commit('setUserLogin', JSON.parse(userDetail))
+        }
       })
+    },
+     isLogin({commit}){
+      const userDetail = localStorage.getItem("userDetail")
+      if(userDetail){
+        commit('setUserLogin', JSON.parse(userDetail))
+      }else{
+        commit('setUserLogin', null)
+      }
+    },
+    logout({commit}){
+      localStorage.clear()
+      commit('setUserLogin', null)
     }
   }
 });

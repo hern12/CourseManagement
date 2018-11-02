@@ -16,6 +16,11 @@ const connect = (done) => {
     })
 }
 
+const get = () => {
+    return connection
+}
+
 module.exports = {
-    connect
+    connect,
+    get
 }
