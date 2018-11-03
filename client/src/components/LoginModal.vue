@@ -50,7 +50,14 @@
         },
         computed: mapState({
             closeModalIfLoginComplete: state => state.userObj 
-        })
+        }),
+        watch: {
+            closeModalIfLoginComplete(val){
+                if(val){
+                    this.$emit('closeModal', false)
+                }
+            }
+        }
     }
 </script>
 

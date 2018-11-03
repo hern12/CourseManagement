@@ -1,15 +1,20 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { login } from '../services/authentication'
+import { getUserProfile, updateUserProfile } from '../services/user'
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    userObj: {}
+    userObj: {},
+    userProfile: {}
   },
   mutations: {
     setUserLogin(state, payload){
       state.userObj = payload
+    },
+    setUserProfile(state, payload){
+      state.userProfile = payload
     }
   },
   actions: {
@@ -19,13 +24,32 @@ export default new Vuex.Store({
           alert(userItem.data.statusTxt)
         }else{
           alert('login success')
-          localStorage.setItem("userDetail", JSON.stringify(userItem.data.user))
+          const userName = userItem.data.user[0].Username
+          const role = userItem.data.user[0].RoleID
+          localStorage.setItem("userDetail", JSON.stringify([{Username: userName, RoleID: role}]))
           const userDetail = localStorage.getItem("userDetail")
           commit('setUserLogin', JSON.parse(userDetail))
         }
       })
     },
-     isLogin({commit}){
+    getUserProfile({commit}, userLogin){
+      getUserProfile(userLogin).then((data) => {
+        commit('setUserProfile', data.data.userProfile[0])
+      })
+    },
+    userProfile({commit}, userProfile){
+      updateUserProfile(userProfile).then(result => {
+        if(result.data.status === true){
+          getUserProfile(userProfile.token).then((data) => {
+            commit('setUserProfile', data.data.userProfile[0])
+            alert('Update success')
+          })
+        }else{
+          alert('Update fail')
+        }
+      })
+    },
+    isLogin({commit}){
       const userDetail = localStorage.getItem("userDetail")
       if(userDetail){
         commit('setUserLogin', JSON.parse(userDetail))
@@ -36,6 +60,6 @@ export default new Vuex.Store({
     logout({commit}){
       localStorage.clear()
       commit('setUserLogin', null)
-    }
+    },
   }
 });

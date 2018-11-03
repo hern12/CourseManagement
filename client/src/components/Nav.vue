@@ -2,7 +2,7 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a class="navbar-item" href="https://bulma.io">
-            <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+            <img src="../assets/MyCourseLogo.svg" width="112" height="28">
             </a>
 
             <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -30,9 +30,9 @@
                             {{userObj[0].Username}}
                         </a>
                         <div class="navbar-dropdown">
-                            <a class="navbar-item">
+                            <router-link class="navbar-item" to='/Profile'>
                                 Profile
-                            </a>
+                            </router-link>
                             <a class="navbar-item" @click="setLogout">
                                 Log out
                             </a>
