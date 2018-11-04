@@ -111,8 +111,11 @@
         },
         methods: {
             createCourse(){
-                console.log(this.courseObj)
-                this.$store.dispatch('createCourse', this.courseObj)
+                const creatObj = {
+                    creator: this.userPermission[0].Username,
+                    courseObj: this.courseObj
+                }
+                this.$store.dispatch('createCourse', creatObj)
             },
             addSubject(){
                 this.courseObj.subject.push({

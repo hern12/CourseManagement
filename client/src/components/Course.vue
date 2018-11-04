@@ -9,16 +9,16 @@
                 </div>
                 <div class="card-content">
                     <p class="course_title">{{excerptText(item.CourseName)}}</p>
-                    <p class="course_instructor">{{item.instructor}}</p>
+                    <p class="course_instructor">{{item.FullName}}</p>
                 </div>
                 <div class="card-footer is-flex">
                     <div class="start_end_date">
                     <p class="is_bold">Start date to End date</p>
-                    <p class="is_text_right">{{item.startTime}} to {{item.endTime}}</p>
+                    <p class="is_text_right">{{ymdFormat(item.CourseStartTime)}} to {{ymdFormat(item.CourseEndTime)}}</p>
                     </div>
                     <div class="number_of_student">
                     <p class="is_bold">Max</p>
-                    <p class="is_text_right">{{item.numberOfStudent}}</p>
+                    <p class="is_text_right">{{item.NumberOfStudent}}</p>
                     </div>
                 </div>
             </div>
@@ -28,11 +28,15 @@
 
 <script>
     import util from '../utility/cutText'
+    import ymdFormat from '../utility/dateFormat'
+    import Datepicker from 'vue-bulma-datepicker'
+
     export default {
         props: ['courseItem'],
         methods: {
-            excerptText: util.cutText
-        }
+            excerptText: util.cutText,
+            ymdFormat: ymdFormat.ymdFormat
+        },
     }
 </script>
 

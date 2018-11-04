@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bulma": "^0.7.2",
+    "moment": "^2.22.2",
     "register-service-worker": "^1.0.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",

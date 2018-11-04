@@ -2,7 +2,8 @@ import Vue from "vue";
 import Vuex from "vuex";
 import { login } from '../services/authentication'
 import { getUserProfile, updateUserProfile } from '../services/user'
-import { getCategory, createCourse } from '../services/course'
+import { getCategory, createCourse, getCourse, searchCourse } from '../services/course'
+
 
 Vue.use(Vuex);
 
@@ -11,6 +12,7 @@ export default new Vuex.Store({
     userObj: {},
     userProfile: {},
 
+    courseResult: [],
     category: []
     
   },
@@ -25,7 +27,11 @@ export default new Vuex.Store({
     //Course section
     setCategroy(state, payload){
       state.category = payload
+    },
+    setCourse(state, payload){
+      state.courseResult = payload
     }
+    
   },
   actions: {
     //Authen section
@@ -74,15 +80,27 @@ export default new Vuex.Store({
     },
 
     //Course section
+    getCourse({commit}){
+      getCourse().then((result) => {
+        commit('setCourse', result.data.result)
+      })
+    },
     getCategory({commit}){
       getCategory().then((result) => {
-        console.log(result)
         commit('setCategroy', result.data.result)
       })
     },
     createCourse({commit}, courseItem){
       createCourse(courseItem).then( result => {
-        console.log(result)
+        if(result.data.status === 'success'){
+          alert('Create course complete')
+        }
+      })
+    },
+    searchCoruse({commit}, criteria){
+      searchCourse(criteria).then( result => {
+        console.log(result.data.result)
+        commit('setCourse', result.data.result)
       })
     }
   }
