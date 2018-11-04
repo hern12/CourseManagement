@@ -31,7 +31,7 @@
                             <div class="field">
                                 <label class="label title is-4">Birthday</label>
                                 <div class="control">
-                                    <datepicker class="fullwidth" v-model="userProfile.BirthDay" placeholder="European Format ('d-m-Y')" :config="{ dateFormat: 'Y-m-d', static: true }"></datepicker>
+                                    <datepicker class="fullwidth" v-model="userProfile.BirthDay" placeholder="Format ('Y-m-d')" :config="{ dateFormat: 'Y-m-d', static: true }"></datepicker>
                                 </div>
                             </div>
                         </div>

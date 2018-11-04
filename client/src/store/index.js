@@ -2,22 +2,33 @@ import Vue from "vue";
 import Vuex from "vuex";
 import { login } from '../services/authentication'
 import { getUserProfile, updateUserProfile } from '../services/user'
+import { getCategory, createCourse } from '../services/course'
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     userObj: {},
-    userProfile: {}
+    userProfile: {},
+
+    category: []
+    
   },
   mutations: {
+    //Authen section
     setUserLogin(state, payload){
       state.userObj = payload
     },
     setUserProfile(state, payload){
       state.userProfile = payload
+    },
+    //Course section
+    setCategroy(state, payload){
+      state.category = payload
     }
   },
   actions: {
+    //Authen section
     login({commit}, userDetail) {
       login(userDetail).then(({userItem}) => {
         if(userItem.data.status === 'fail'){
@@ -61,5 +72,18 @@ export default new Vuex.Store({
       localStorage.clear()
       commit('setUserLogin', null)
     },
+
+    //Course section
+    getCategory({commit}){
+      getCategory().then((result) => {
+        console.log(result)
+        commit('setCategroy', result.data.result)
+      })
+    },
+    createCourse({commit}, courseItem){
+      createCourse(courseItem).then( result => {
+        console.log(result)
+      })
+    }
   }
 });
