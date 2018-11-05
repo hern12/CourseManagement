@@ -39,13 +39,13 @@
                         <div class="column is-2">
                             <div class="field">
                                 <label class="label title is-4">Start Date</label>
-                                <datepicker v-model="courseObj.startDate" placeholder="European Format ('Y-m-d')" :config="{ dateFormat: 'Y-m-d', static: true }"></datepicker>
+                                <datepicker input-class='input' v-model="courseObj.startDate" placeholder="2018-11-25" format="yyyy-MM-dd"></datepicker>
                             </div>
                         </div>
                         <div class="column is-2">
                             <div class="field">
                                 <label class="label title is-4">End Date</label>
-                                <datepicker v-model="courseObj.endDate" placeholder="European Format ('Y-m-d')" :config="{ dateFormat: 'Y-m-d', static: true }"></datepicker>
+                                <datepicker input-class='input' v-model="courseObj.endDate" placeholder="2018-11-26"  format="yyyy-MM-dd"></datepicker>
                             </div>
                         </div>
                         <div class="column is-3">
@@ -82,8 +82,9 @@
 </template>
 
 <script>
-    import Datepicker from 'vue-bulma-datepicker'
+    import Datepicker from 'vuejs-datepicker';
     import { mapState } from 'vuex'
+    import moment from 'moment'
     export default{
         data(){
             return{
@@ -97,8 +98,8 @@
                         },
                     ],
                     category: 'Select Category',
-                    startDate: new Date().toString(),
-                    endDate: new Date().toString(),
+                    startDate: moment().format('YYYY-MM-DD'),
+                    endDate: moment().format('YYYY-MM-DD'),
                     numberOfStudent: 0
                 }
             }
@@ -111,6 +112,8 @@
         },
         methods: {
             createCourse(){
+                this.courseObj.startDate = moment(this.courseObj.startDate).format('YYYY-MM-DD')
+                this.courseObj.endDate = moment(this.courseObj.endDate).format('YYYY-MM-DD')
                 const creatObj = {
                     creator: this.userPermission[0].Username,
                     courseObj: this.courseObj

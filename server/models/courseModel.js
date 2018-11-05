@@ -28,17 +28,34 @@ const getCourse = async() => {
 
 const getCourseByFilter = async(criteria) => {
     try {
-        console.log('model criteria ', criteria)
-        const defaultStartDate = criteria.startDate ? criteria.startDate : '2000-01-01'
-        const defaultEndDate = criteria.endDate ? criteria.endDate : '3000-01-01'
-        console.log(defaultStartDate, defaultEndDate)
+        const defaultStartDate = criteria.startDate
+        const defaultEndDate = criteria.endDate
+        let query = ''
+        if(criteria.courseName !== '' && defaultStartDate === '' && defaultEndDate === ''){
+            query = `select tc.CourseName, tc.CourseDescription, tl.FirstName + ' ' + tl.LastName as FullName, tc.CourseStartTime, tc.CourseEndTime, tc.NumberOfStudent 
+            from tblCourseMaster tc
+            left outer join tblUsers tl on tc.UserID = tl.UserID
+            where tc.CourseName like '%${criteria.courseName}%'`
+        }else if(criteria.courseName === '' && defaultStartDate !== '' && defaultEndDate !== ''){
+            query = `select tc.CourseName, tc.CourseDescription, tl.FirstName + ' ' + tl.LastName as FullName, tc.CourseStartTime, tc.CourseEndTime, tc.NumberOfStudent 
+            from tblCourseMaster tc
+            left outer join tblUsers tl on tc.UserID = tl.UserID
+            where (tc.CourseStartTime between @startDate and @endDate) or (tc.CourseEndTime between @startDate and @endDate)`
+        }else if(criteria.courseName !== '' && defaultStartDate !== '' && defaultEndDate !== ''){
+            console.log('okok')
+            query = `select tc.CourseName, tc.CourseDescription, tl.FirstName + ' ' + tl.LastName as FullName, tc.CourseStartTime, tc.CourseEndTime, tc.NumberOfStudent 
+            from tblCourseMaster tc
+            left outer join tblUsers tl on tc.UserID = tl.UserID
+            where tc.CourseName like '%${criteria.courseName}%' and ((tc.CourseStartTime between @startDate and @endDate) or (tc.CourseEndTime between @startDate and @endDate))`
+        }else{
+            query = `select tc.CourseName, tc.CourseDescription, tl.FirstName + ' ' + tl.LastName as FullName, tc.CourseStartTime, tc.CourseEndTime, tc.NumberOfStudent 
+            from tblCourseMaster tc
+            left outer join tblUsers tl on tc.UserID = tl.UserID`
+        }
         const course = await DB.get().request()
         .input('startDate', defaultStartDate)
         .input('endDate', defaultEndDate)
-        .query(`select tc.CourseName, tc.CourseDescription, tl.FirstName + ' ' + tl.LastName as FullName, tc.CourseStartTime, tc.CourseEndTime, tc.NumberOfStudent from tblCourseMaster tc
-                left outer join tblUsers tl on tc.UserID = tl.UserID
-                where tc.CourseName like '%${criteria.courseName}' and ((tc.CourseStartTime BETWEEN  @startDate AND @endDate) OR (tc.CourseEndTime Between @startDate AND @endDate)
-                OR (tc.CourseStartTime <= @startDate AND tc.CourseEndTime >= @endDate))`)
+        .query(query)
         if(course.recordset){
             return course.recordset
         }else{
@@ -51,8 +68,8 @@ const getCourseByFilter = async(criteria) => {
 }
 
 const createCourse = async(course) => {
-    const startDate = moment(course.courseObj.startDate, 'YYYY-MM-DD, h:mm:ss a').format()
-    const endDate = moment(course.courseObj.endDate, 'YYYY-MM-DD, h:mm:ss a').format()
+    const startDate = moment(course.courseObj.startDate).format('YYYY-MM-DD')
+    const endDate = moment(course.courseObj.endDate).format('YYYY-MM-DD')
     try{
         //get user id before insert 
         const getUserID = await DB.get().request()
