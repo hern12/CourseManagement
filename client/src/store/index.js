@@ -99,7 +99,6 @@ export default new Vuex.Store({
     },
     searchCoruse({commit}, criteria){
       searchCourse(criteria).then( result => {
-        console.log(result.data.result)
         commit('setCourse', result.data.result)
       })
     }
