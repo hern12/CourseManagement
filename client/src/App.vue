@@ -14,26 +14,26 @@
 
 <script>
 import Nav from "@/components/Nav.vue";
-import LoginComponent from '@/components/LoginModal.vue'
-import { mapState } from 'vuex'
+import LoginComponent from "@/components/LoginModal.vue";
+import { mapState } from "vuex";
 
 export default {
   components: {
     Nav,
     LoginComponent
   },
-  data(){
-    return{
+  data() {
+    return {
       modalState: false,
       isLogin: null
-    }
+    };
   },
-  created(){
-    this.$store.dispatch('isLogin')
+  created() {
+    this.$store.dispatch("isLogin");
   },
   methods: {
-    loginModalStatus (status) {
-      this.modalState = status
+    loginModalStatus(status) {
+      this.modalState = status;
     }
   },
   computed: mapState({
@@ -47,10 +47,10 @@ export default {
   min-height: 100%;
   height: auto !important;
   height: 100%;
-  background-image: linear-gradient(#C9D6FF,#E2E2E2);
+  background-image: linear-gradient(#c9d6ff, #e2e2e2);
 }
-.alertText{
+.alertText {
   text-align: center;
-  margin-top:200px;
+  margin-top: 200px;
 }
 </style>

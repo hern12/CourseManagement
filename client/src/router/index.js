@@ -16,14 +16,12 @@ export default new Router({
     {
       path: "/CreateCourse",
       name: "createCourse",
-      component: () =>
-      import("../views/CreateCourseForm.vue")
+      component: () => import("../views/CreateCourseForm.vue")
     },
     {
       path: "/Profile",
       name: "profile",
-      component: () => 
-      import('../views/Profile.vue')
+      component: () => import("../views/Profile.vue")
     }
   ]
 });

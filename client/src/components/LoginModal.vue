@@ -24,40 +24,38 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex'
-    import axios from 'axios'
-    export default {
-        props:['activeModal'],
-        data(){
-            return{
-                modalStatus: this.activeModal,
-                username: 'student1',
-                password: '123123'
-            }
-        },
-        methods: {
-            loginModalStatus (status) {
-                this.modalStatus = status
-                this.$emit('closeModal', this.modalStatus)
-            },
-            login(){
-                let userObj = {
-                    username: this.username,
-                    password: this.password
-                }
-                this.$store.dispatch('login', userObj)
-            }
-        },
-        computed: mapState({
-            closeModalIfLoginComplete: state => state.userObj 
-        }),
-        watch: {
-            closeModalIfLoginComplete(val){
-                if(val){
-                    this.$emit('closeModal', false)
-                }
-            }
-        }
+import { mapState } from "vuex";
+export default {
+  props: ["activeModal"],
+  data() {
+    return {
+      modalStatus: this.activeModal,
+      username: "student1",
+      password: "123123"
+    };
+  },
+  methods: {
+    loginModalStatus(status) {
+      this.modalStatus = status;
+      this.$emit("closeModal", this.modalStatus);
+    },
+    login() {
+      let userObj = {
+        username: this.username,
+        password: this.password
+      };
+      this.$store.dispatch("login", userObj);
     }
+  },
+  computed: mapState({
+    closeModalIfLoginComplete: state => state.userObj
+  }),
+  watch: {
+    closeModalIfLoginComplete(val) {
+      if (val) {
+        this.$emit("closeModal", false);
+      }
+    }
+  }
+};
 </script>
-

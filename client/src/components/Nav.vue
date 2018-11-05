@@ -1,9 +1,9 @@
 <template>
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <a class="navbar-item" href="https://bulma.io">
+            <router-link class="navbar-item" to="/">
             <img src="../assets/MyCourseLogo.svg" width="112" height="28">
-            </a>
+            </router-link>
 
             <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
             <span aria-hidden="true"></span>
@@ -48,21 +48,20 @@
     </nav>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 export default {
-
-    methods:{
-        setLogin(){
-            this.$emit('activeModal', true)
-        },
-        setLogout(){
-            this.$store.dispatch('logout')
-        }
+  methods: {
+    setLogin() {
+      this.$emit("activeModal", true);
     },
-    computed: mapState({
-        userObj: state => state.userObj
-    })
-}
+    setLogout() {
+      this.$store.dispatch("logout");
+    }
+  },
+  computed: mapState({
+    userObj: state => state.userObj
+  })
+};
 </script>
 
 

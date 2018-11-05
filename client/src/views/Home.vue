@@ -28,11 +28,10 @@
 
 <script>
 // @ is an alias to /src
-import Datepicker from 'vuejs-datepicker'
-import Course from "../mock_data/course.js"
-import moment from 'moment'
-import CourseComponent from '@/components/Course.vue'
-import { mapState } from 'vuex'
+import Datepicker from "vuejs-datepicker";
+import moment from "moment";
+import CourseComponent from "@/components/Course.vue";
+import { mapState } from "vuex";
 
 export default {
   name: "home",
@@ -43,38 +42,38 @@ export default {
   data() {
     return {
       courseData: [],
-      searchName: '',
-      startDate: moment().format('YYYY-MM-DD'),
-      endDate: moment().format('YYYY-MM-DD')
+      searchName: "",
+      startDate: moment().format("YYYY-MM-DD"),
+      endDate: moment().format("YYYY-MM-DD")
     };
   },
   methods: {
-    searchCourse(){
+    searchCourse() {
       const criteria = {
         courseName: this.searchName,
         startDate: this.startDate,
         endDate: this.endDate
-      }
-      this.$store.dispatch('searchCoruse', criteria)
+      };
+      this.$store.dispatch("searchCoruse", criteria);
     },
-    clearFilter(){
+    clearFilter() {
       const criteria = {
-        courseName: '',
-        startDate: '',
-        endDate: ''
-      }
-      this.$store.dispatch('searchCoruse', criteria)
+        courseName: "",
+        startDate: "",
+        endDate: ""
+      };
+      this.$store.dispatch("searchCoruse", criteria);
     }
   },
   created() {
-    this.$store.dispatch('getCourse')
+    this.$store.dispatch("getCourse");
   },
   computed: mapState({
     course: state => state.courseResult
   }),
   watch: {
-    course(val){
-      this.courseData = this.course
+    course() {
+      this.courseData = this.course;
     }
   }
 };
@@ -96,6 +95,4 @@ export default {
 .search_button {
   margin-left: 10px;
 }
-
-
 </style>

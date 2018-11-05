@@ -61,50 +61,53 @@
 </template>
 
 <script>
-
-import Datepicker from 'vue-bulma-datepicker'
-import { mapState, mapAction } from 'vuex'
+import Datepicker from "vue-bulma-datepicker";
+import { mapState } from "vuex";
 
 export default {
-    components:{
-        Datepicker
-    },
-    data(){
-        return{
-            userLogin: this.$store.state.userObj,
-            userProfile: this.$store.state.userProfile
-        }
-    },
-    created(){
-        this.$store.dispatch('getUserProfile', this.userLogin)
-    },
-    methods: {
-        updateUserProfile(){
-            this.$store.dispatch('userProfile', {
-                userProfile: this.userProfile,
-                token: this.userLogin 
-            })
-        }
-    },
-    computed: mapState({
-        getUserProfile: state => state.userProfile
-    }),
-    watch: {
-        getUserProfile(val){
-             this.userProfile = this.$store.state.userProfile
+  components: {
+    Datepicker
+  },
+  data() {
+    return {
+      userLogin: this.$store.state.userObj,
+      userProfile: this.$store.state.userProfile
+    };
+  },
+  created() {
+    this.$store.dispatch("getUserProfile", this.userLogin);
+  },
+  methods: {
+    updateUserProfile() {
+      this.$store.dispatch("userProfile", {
+        userProfile: this.userProfile,
+        token: this.userLogin
+      });
+    }
+  },
+  computed: mapState({
+    getUserProfile: state => {
+        if(state.userProfile){
+            return state.userProfile
         }
     }
-}
+  }),
+  watch: {
+    getUserProfile() {
+      this.userProfile = this.$store.state.userProfile;
+    }
+  }
+};
 </script>
 
 
 <style scoped>
-    .hero-body{
-        width: 50%;
-        margin: 0 auto;
-    }
-    select, .select{
-        width: 100%;
-    }
+.hero-body {
+  width: 50%;
+  margin: 0 auto;
+}
+select,
+.select {
+  width: 100%;
+}
 </style>
-

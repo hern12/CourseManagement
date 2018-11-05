@@ -27,17 +27,16 @@
 </template>
 
 <script>
-    import util from '../utility/cutText'
-    import ymdFormat from '../utility/dateFormat'
-    import Datepicker from 'vue-bulma-datepicker'
+import util from "../utility/cutText";
+import ymdFormat from "../utility/dateFormat";
 
-    export default {
-        props: ['courseItem'],
-        methods: {
-            excerptText: util.cutText,
-            ymdFormat: ymdFormat.ymdFormat
-        },
-    }
+export default {
+  props: ["courseItem"],
+  methods: {
+    excerptText: util.cutText,
+    ymdFormat: ymdFormat.ymdFormat
+  }
+};
 </script>
 
 <style>
@@ -60,7 +59,7 @@
   color: #2c3e50;
   font-size: 14px;
 }
-img{
-    object-fit: contain
+img {
+  object-fit: contain;
 }
 </style>

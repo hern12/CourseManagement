@@ -57,7 +57,7 @@
                     </div>
                     <div class="field">
                         <label class="label title is-4">Subject</label>
-                        <div class="control is-flex rm_padding mr_bot" v-for="(item, index) in courseObj.subject">
+                        <div class="control is-flex rm_padding mr_bot" v-for="(item, index) in courseObj.subject" :key="item+index">
                             <div class="flexAuto mr_right">
                                 <input class="input" type="text" v-model="item.subjectName" placeholder="Stop spelling">
                             </div>
@@ -82,69 +82,73 @@
 </template>
 
 <script>
-    import Datepicker from 'vuejs-datepicker';
-    import { mapState } from 'vuex'
-    import moment from 'moment'
-    export default{
-        data(){
-            return{
-                categoryDropdown: [],
-                courseObj: {
-                    courseName: '',
-                    courseDescription: '',
-                    subject: [
-                        { 
-                            subjectName: ''
-                        },
-                    ],
-                    category: 'Select Category',
-                    startDate: moment().format('YYYY-MM-DD'),
-                    endDate: moment().format('YYYY-MM-DD'),
-                    numberOfStudent: 0
-                }
-            }
-        },
-        components:{
-            Datepicker
-        },
-        created() {
-            this.$store.dispatch('getCategory')
-        },
-        methods: {
-            createCourse(){
-                this.courseObj.startDate = moment(this.courseObj.startDate).format('YYYY-MM-DD')
-                this.courseObj.endDate = moment(this.courseObj.endDate).format('YYYY-MM-DD')
-                const creatObj = {
-                    creator: this.userPermission[0].Username,
-                    courseObj: this.courseObj
-                }
-                this.$store.dispatch('createCourse', creatObj)
-            },
-            addSubject(){
-                this.courseObj.subject.push({
-                    subjectName: ''
-                })
-            },
-            removeSubject(index){
-                this.courseObj.subject.splice(index, 1)
-            }
-        },
-        computed: mapState({
-            userPermission: state => state.userObj,
-            category: state => state.category
-        }),
-        watch: {
-            category(val){
-                this.categoryDropdown = this.category
-            }
-        }
+import Datepicker from "vuejs-datepicker";
+import { mapState } from "vuex";
+import moment from "moment";
+export default {
+  data() {
+    return {
+      categoryDropdown: [],
+      courseObj: {
+        courseName: "",
+        courseDescription: "",
+        subject: [
+          {
+            subjectName: ""
+          }
+        ],
+        category: "Select Category",
+        startDate: moment().format("YYYY-MM-DD"),
+        endDate: moment().format("YYYY-MM-DD"),
+        numberOfStudent: 0
+      }
+    };
+  },
+  components: {
+    Datepicker
+  },
+  created() {
+    this.$store.dispatch("getCategory");
+  },
+  methods: {
+    createCourse() {
+      this.courseObj.startDate = moment(this.courseObj.startDate).format(
+        "YYYY-MM-DD"
+      );
+      this.courseObj.endDate = moment(this.courseObj.endDate).format(
+        "YYYY-MM-DD"
+      );
+      const creatObj = {
+        creator: this.userPermission[0].Username,
+        courseObj: this.courseObj
+      };
+      this.$store.dispatch("createCourse", creatObj);
+    },
+    addSubject() {
+      this.courseObj.subject.push({
+        subjectName: ""
+      });
+    },
+    removeSubject(index) {
+      this.courseObj.subject.splice(index, 1);
     }
+  },
+  computed: mapState({
+    userPermission: state => state.userObj,
+    category: state => state.category
+  }),
+  watch: {
+    category() {
+      this.categoryDropdown = this.category;
+    }
+  }
+};
 </script>
 
 
 
 <style  scoped>
-    .flexAuto{
-        flex: auto
-    }
+.flexAuto {
+  flex: auto;
+}
 </style>
