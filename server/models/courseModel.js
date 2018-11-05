@@ -42,7 +42,6 @@ const getCourseByFilter = async(criteria) => {
             left outer join tblUsers tl on tc.UserID = tl.UserID
             where (tc.CourseStartTime between @startDate and @endDate) or (tc.CourseEndTime between @startDate and @endDate)`
         }else if(criteria.courseName !== '' && defaultStartDate !== '' && defaultEndDate !== ''){
-            console.log('okok')
             query = `select tc.CourseName, tc.CourseDescription, tl.FirstName + ' ' + tl.LastName as FullName, tc.CourseStartTime, tc.CourseEndTime, tc.NumberOfStudent 
             from tblCourseMaster tc
             left outer join tblUsers tl on tc.UserID = tl.UserID
